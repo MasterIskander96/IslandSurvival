@@ -11,9 +11,7 @@ metal = 0
 
 print("Welcome to the game 'Island Survival'!")
 time.sleep(2)
-print("Creator:Iskander Abdullayev")
-time.sleep(2)
-print(f"You have washed ashore on a deserted island and must survive for {days} days using your skills and resources.")
+print(f"You have been stranded on a deserted island and must survive for {days} days using your skills and resources.")
 
 for day in range(1, days + 1):
     time.sleep(2)
@@ -53,20 +51,23 @@ for day in range(1, days + 1):
         gathered = random.randint(5, 20)
         wood += gathered
         print(f"You gathered {gathered} units of wood.")
-        health -= random.randint(1, 3)
-        print(f"You lost {random.randint(1, 3)} health while working.")
+        health_loss = random.randint(1, 3)
+        health -= health_loss
+        print(f"You lost {health_loss} health while working.")
     elif choice == "5":
         gathered = random.randint(3, 15)
         stone += gathered
         print(f"You gathered {gathered} units of stone.")
-        health -= random.randint(1, 4)
-        print(f"You lost {random.randint(1, 4)} health while working.")
+        health_loss = random.randint(1, 4)
+        health -= health_loss
+        print(f"You lost {health_loss} health while working.")
     elif choice == "6":
         gathered = random.randint(1, 10)
         metal += gathered
         print(f"You gathered {gathered} units of metal.")
-        health -= random.randint(2, 5)
-        print(f"You lost {random.randint(2, 5)} health while working.")
+        health_loss = random.randint(2, 5)
+        health -= health_loss
+        print(f"You lost {health_loss} health while working.")
     elif choice == "7":
         print("You decided to quit the game. Goodbye!")
         break
@@ -74,12 +75,12 @@ for day in range(1, days + 1):
         print("Invalid choice! Please select 1-7.")
         continue
 
-    # Расход ресурсов (исправлен отступ)
+    # Daily resource consumption
     food -= random.randint(3, 10)
     water -= random.randint(3, 10)
     health -= random.randint(0, 2)
 
-    # Проверка на отрицательные ресурсы
+    # Check for negative resources
     if food < 0:
         food = 0
         health -= random.randint(5, 10)
@@ -89,6 +90,7 @@ for day in range(1, days + 1):
         health -= random.randint(5, 10)
         print("You're dehydrated! Health decreased.")
 
+    # Random events
     event = random.randint(1, 100)
     
     if event <= 10:
@@ -115,26 +117,29 @@ for day in range(1, days + 1):
         print("You found medicinal herbs and recovered health.")
         health += random.randint(5, 15)
     elif event <= 80:
-        print("You found a fire and warmed up, recovering health.")
+        print("You found a campfire and warmed up, recovering health.")
         health += random.randint(5, 15)
     elif event <= 85:
         print("You found a pile of wood!")
-        wood += random.randint(10, 20)
-        print(f"Added {random.randint(10, 20)} wood.")
+        wood_gained = random.randint(10, 20)
+        wood += wood_gained
+        print(f"Added {wood_gained} wood.")
     elif event <= 90:
-        print("You found a deposit of stone!")
-        stone += random.randint(10, 20)
-        print(f"Added {random.randint(10, 20)} stone.")
+        print("You found a stone deposit!")
+        stone_gained = random.randint(10, 20)
+        stone += stone_gained
+        print(f"Added {stone_gained} stone.")
     elif event <= 95:
         print("You found scrap metal!")
-        metal += random.randint(5, 15)
-        print(f"Added {random.randint(5, 15)} metal.")
+        metal_gained = random.randint(5, 15)
+        metal += metal_gained
+        print(f"Added {metal_gained} metal.")
     elif event == 100:
-        print("You found an old boat and were able to sail away from the island!")
+        print("You found an old boat and managed to sail away from the island!")
         print("Congratulations! You survived!")
         break
     
-
+    # Cap resources at 100
     if food > 100:
         food = 100
     if water > 100:
